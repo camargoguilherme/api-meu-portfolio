@@ -10,6 +10,7 @@ const DetailController = require('./controllers/DetailController');
 const MenuController = require('./controllers/MenuController');
 const ProfileController = require('./controllers/ProfileController');
 const SkillController = require('./controllers/SkillController');
+const MediaController = require('./controllers/MediaController');
 const UserController = require('./controllers/UserController');
 
 // Routes para Boxes
@@ -56,7 +57,14 @@ routes.put('/skill/:id', SkillController.update);
 routes.delete('/skill/:id', SkillController.delete);
 
 
-// Routes para About
+// Routes para Media
+routes.get('/media', MediaController.findAll);
+routes.get('/media/:id', MediaController.show);
+routes.post('/media', MediaController.store);
+routes.put('/media/:id', MediaController.update);
+routes.delete('/media/:id', MediaController.delete);
+
+// Routes para User
 // routes.get('/user', UserController.findAll);
 // routes.get('/user/:id', UserController.show);
 // routes.post('/user', UserController.store);
