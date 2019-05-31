@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 var AboutSchema = new mongoose.Schema({
-  info: String,
+  title: String,
+  items: [ String ]
 });
 
 

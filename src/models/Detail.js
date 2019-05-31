@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 
 var DetailSchema = new mongoose.Schema({
-  title: String,
-  items:[ String ]
+  info: String
 });
 
 
