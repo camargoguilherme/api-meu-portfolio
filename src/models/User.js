@@ -12,6 +12,10 @@ var UserSchema = new mongoose.Schema({
   perfil: String,
   phone: String,
   token: String
+},{
+  timestamps: true,
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true }
 });
 
 UserSchema.pre('save', function(next) {

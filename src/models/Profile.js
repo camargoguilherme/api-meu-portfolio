@@ -6,8 +6,13 @@ var ProfileSchema = new mongoose.Schema({
   name: String,
   resume:String,
   area: String,
-  perfil: String,
+  avatar: String,
+  curriculum: String,
   phone: String,
+},{
+  timestamps: true,
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true }
 });
 
 

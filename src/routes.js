@@ -3,7 +3,6 @@ const routes = express.Router();
 const multer = require('multer');
 const multerConfig = require('./config/multer');
 
-const BoxController = require('./controllers/BoxController');
 const FileController = require('./controllers/FileController');
 const AboutController = require('./controllers/AboutController');
 const DetailController = require('./controllers/DetailController');
@@ -14,8 +13,8 @@ const MediaController = require('./controllers/MediaController');
 const UserController = require('./controllers/UserController');
 
 // Routes para Boxes
-routes.post('/boxes', BoxController.store);
-routes.get('/boxes/:id', BoxController.show);
+// routes.post('/boxes', BoxController.store);
+// routes.get('/boxes/:id', BoxController.show);
 
 // Routes para About
 routes.get('/about', AboutController.findAll);
@@ -75,6 +74,10 @@ routes.delete('/media/:id', MediaController.delete);
 routes.post('/avatar', 
   multer(multerConfig).single('file'), 
   FileController.store);
+routes.get('/avatar', FileController.findAll);
+routes.get('/avatar/:id', FileController.show);
+routes.put('/avatar/:id', FileController.update);
+routes.delete('/avatar/:id', FileController.delete);
 
 // Routes para Curriculum
 routes.post('/curriculum', 

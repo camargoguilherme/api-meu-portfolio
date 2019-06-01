@@ -9,12 +9,13 @@ module.exports = {
       cb(null, path.resolve(__dirname, '..', '..', 'tmp'))
     },
     filename: (req, file, cb) =>{
-      crypto.randomBytes(16, (err, hash)=>{
-        if(err) cb(err);
-
-        file.key = `${hash.toString('hex')}-${file.originalname}`;
-        cb(null, file.key);
-      })
+      file.key = `${file.originalname.replace(/( )/g, '-')}`;
+      cb(null, file.key);
+      // crypto.randomBytes(16, (err, hash)=>{
+      //   if(err) cb(err);
+      //   file.key = `${hash.toString('hex')}-${file.originalname.replace(/( )/g, '-')}`;
+      //   cb(null, file.key);
+      // })
     }
   })
 };

@@ -7,7 +7,6 @@ const File = new mongoose.Schema({
   },
   type: {
     type: String,
-    required: true
   },
   path: {
     type: String,
@@ -20,7 +19,7 @@ const File = new mongoose.Schema({
 });
 
 File.virtual('url').get(function(){
-  const url = process.env.URL || 'http://localhost:3333'
+  const url = process.env.URL || 'http://localhost:3003'
   return `${url}/files/${decodeURIComponent(this.path)}`
 })
 
