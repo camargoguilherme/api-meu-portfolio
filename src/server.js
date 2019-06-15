@@ -2,30 +2,20 @@ const express = require('express');
 const mongoose = require('mongoose'); 
 const path = require('path');
 const cors = require('cors');
-
 const app = express();
-app.use(cors());
 
-const server = require('http').Server(app);
-// const io = require('socket.io')(server);
+const routes = require('./routes');
 
-// io.on('connect', socket =>{
-// 	socket.on('connectPage', teste =>{
-// 		socket.join(teste)
-// 	})
-// });
-
+const port = process.env.PORT || 3333;
 mongoose.connect(process.env.URL_DB, { useNewUrlParser: true });
 
-app.use((req, res, next) =>{
-	//req.io = io;
-	return next();
-})
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
+app.use(routes)
 
-app.use(require('./routes'));
-
-server.listen(process.env.PORT || 3333);
+app.listen(port, () =>{
+	console.log(`API RUNNING ON http://localhost:${port}`)
+});
