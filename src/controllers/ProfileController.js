@@ -2,8 +2,18 @@ const Profile = require('../models/Profile');
 
 class ProfileController{
   async store(req, res){
-    const profile = await Profile.create(req.body);
-    return res.json(profile);
+    const { avatar, curriculum } = req.files;
+    let myAvatar = avatar && avatar[0].filename;
+    let myCurriculum = curriculum && curriculum[0].filename;
+
+    const profile = {
+      ...req.body,
+      pathAvatar: myAvatar,
+      pathCurriculum: myCurriculum
+    }
+
+    const profileNew = await Profile.create(profile);
+    return res.json(profileNew);
   }
 
   async show(req, res){
@@ -12,13 +22,31 @@ class ProfileController{
   }
 
   async update(req, res){
-    const profile = await Profile.findByIdAndUpdate(req.params.id, req.body)
-    return res.json(profile);
+    const { avatar, curriculum } = req.files;
+    let myAvatar = avatar && avatar[0].filename;
+    let myCurriculum = curriculum && curriculum[0].filename;
+    
+    const profile = {
+      ...req.body,
+      pathAvatar: myAvatar,
+      pathCurriculum: myCurriculum
+    }
+
+    const profileUpdated = await Profile.findByIdAndUpdate(req.params.id, profile);
+    return res.json(profileUpdated);
   }
 
   async delete(req, res){
     const profile = await Profile.findByIdAndDelete(req.params.id)
     return res.json(profile);
+  }
+
+  async deleteMultiple(req, res){
+    const ids = req.body.ids;
+    await Promise.all(
+      ids.map( id => Profile.findByIdAndDelete(id))
+    )
+    return res.json({status: true, message: `profiles deleted ${ids}`});
   }
 
   async findAll(req, res){
