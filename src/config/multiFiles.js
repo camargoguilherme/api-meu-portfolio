@@ -6,26 +6,26 @@ function checkFileType(file, cb) {
 	// Allowed ext
 	const filetypes = /jpeg|jpg|png|gif|pdf/;
 	// Check ext
-	const extname = 
+	const extname =
 	filetypes.test(path.extname(file.originalname).toLowerCase());
 	// Check mime
 	const mimetype = filetypes.test(file.mimetype);
-	
+
 	if (mimetype && extname) {
 			return cb(null, true);
 		} else {
-			cb('Error: Images Only!');
+			cb('Error!');
 	}
 }
 module.exports = {
 	storage: multer.diskStorage({
-		destination: path.resolve(__dirname, '..', '..', 'tmp'),
+		destination: path.resolve(__dirname, '..', '..', 'upload', 'profile'),
 		filename: function(res, file, cb){
-			cb(null, file.originalname);
+			cb(null, file.originalname.replace(/\s/g, '_'));
 		}
 	}),
 	limits: { fileSize: 1024*1024*5, files: 2 },
 	fileFilter: function(req, file, cb) {
-    checkFileType(file, cb);
+	checkFileType(file, cb);
   }
 }

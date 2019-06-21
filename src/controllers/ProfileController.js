@@ -3,15 +3,13 @@ const Profile = require('../models/Profile');
 class ProfileController{
   async store(req, res){
     const { avatar, curriculum } = req.files;
-    let myAvatar = avatar && avatar[0].filename;
-    let myCurriculum = curriculum && curriculum[0].filename;
 
     const profile = {
       ...req.body,
-      pathAvatar: myAvatar,
-      pathCurriculum: myCurriculum
+      pathAvatar: avatar && avatar[0].filename,
+      pathCurriculum: curriculum && curriculum[0].filename
     }
-
+    
     const profileNew = await Profile.create(profile);
     return res.json(profileNew);
   }
@@ -23,15 +21,13 @@ class ProfileController{
 
   async update(req, res){
     const { avatar, curriculum } = req.files;
-    let myAvatar = avatar && avatar[0].filename;
-    let myCurriculum = curriculum && curriculum[0].filename;
     
     const profile = {
       ...req.body,
-      pathAvatar: myAvatar,
-      pathCurriculum: myCurriculum
+      pathAvatar: avatar && avatar[0].filename,
+      pathCurriculum: curriculum && curriculum[0].filename
     }
-
+  
     const profileUpdated = await Profile.findByIdAndUpdate(req.params.id, profile);
     return res.json(profileUpdated);
   }
