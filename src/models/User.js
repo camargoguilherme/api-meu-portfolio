@@ -7,10 +7,6 @@ var UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   name: String,
-  resume:String,
-  area: String,
-  perfil: String,
-  phone: String,
   token: String
 },{
   timestamps: true,
@@ -29,12 +25,12 @@ UserSchema.methods = {
   _hashPassword(password) {
     return bcrypt.hashSync(password);
   },
-  authenticateUser(password) {
-    return bcrypt.compareSync(password, this.password);
+  authUser(password) {
+    return password === this.password;
   },
   createToken() {
     // create a token
-    var token = jwt.sign({ id: this._id }, process.env.JWT_WORD || config.secret, 
+    var token = jwt.sign({ id: this._id }, process.env.JWT_WORD || 'JWT_WORD', 
       { 
         expiresIn: 3600 // expires in 24 hours
       });
@@ -46,10 +42,6 @@ UserSchema.methods = {
       email: this.email,
       username: this.username,
       name: this.name,
-      resume: this.resume,
-      area: this.area,
-      perfil: this.perfil,
-      phone: this.phone,
       token: this.createToken()
     }
   },

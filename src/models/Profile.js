@@ -17,12 +17,12 @@ var ProfileSchema = new mongoose.Schema({
 
 ProfileSchema.virtual('avatar').get(function(){
   const url = process.env.URL || 'http://localhost:3333'
-  return this.pathAvatar && `${url}/profile/${decodeURIComponent(this.pathAvatar)}`
+  return this.pathAvatar && `${url}/profiles/${decodeURIComponent(this.pathAvatar)}`
 })
 
 ProfileSchema.virtual('curriculum').get(function(){
   const url = process.env.URL || 'http://localhost:3333'
-  return this.pathCurriculum && `${url}/profile/${decodeURIComponent(this.pathCurriculum)}`
+  return this.pathCurriculum && `${url}/profiles/${decodeURIComponent(this.pathCurriculum)}`
 })
 
 module.exports = mongoose.model('Profile', ProfileSchema);

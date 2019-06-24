@@ -1,125 +1,58 @@
 const User = require('../models/User');
 
-class UserController{
-    // Create and Save a new User
-    async create(req, res){
-        let username = req.body.username;
-        let fullname = req.body.fullname;
-        let password = req.body.password;
-        let email = req.body.email;
-        
-        console.log(req.body)
-        
-        if (username && password) {
-        User.create({
-            username : username,
-            fullname: fullname,
-            email : email,
-            password : password,
-            admin: false
-        },
-        function (err, user) {
-            if (err) 
-            return res.status(500).send({"error":err, "message":"There was a problem registering the user."})
-            // create a token
-            /*
-            var token = jwt.sign({ id: user._id }, process.env.JWT_WORD, {
-            expiresIn: 86400 // expires in 24 hours
-            });
-            */
-            res.status(200).send({ auth: true, token: token });
-        });
-        }else{
-        res.status(400).send({ "message": "campos obrigatorios" });
-        }
-    };
+class UserController {
 
-    // Retrieve and return all users from the database.
-    async findAll(req, res){
-        User.find()
-        .then(users => {
-            res.send(users);
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving users."
-            });
-        });
-    };
+  async store(req, res) {
+    const user = await User.create(req.body);
+    const stored = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      name: user.name
+    }
+    return res.json(stored);
+  }
 
-    // Find a single user with a userId
-    async findOne(req, res){
-        User.findById(req.params.userId)
-        .then(user => {
-            if(!user) {
-                return res.status(404).send({
-                    message: "User not found with id " + req.params.userId
-                });
-            }
-            res.send(user);
-        }).catch(err => {
-            if(err.kind === 'ObjectId') {
-                return res.status(404).send({
-                    message: "User not found with id " + req.params.userId
-                });
-            }
-            return res.status(500).send({
-                message: "Error retrieving user with id " + req.params.userId
-            });
-        });
-    };
+  async show(req, res) {
+    const user = await User.findById(req.params.id)
+    const show = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      name: user.name
+    }
+    return res.json(show);
+  }
 
-    // Update a user identified by the userId in the request
-    async update(req, res){
-        console.log(req.body)
-        // Find user and update it with the request body
-        User.findOneAndUpdate({_id: req.params.userId},
-            req.body,
-            {upsert: true},
-            function (err, user) {
-            if (err) 
-                res.status(404).send({status: 'error', message: err});
-            res.send(user);
-            }
-        )
-        .then(/*user => {
-            if(!user) {
-                return res.status(404).send({
-                    message: "User not found with id " + req.params.userId
-                });
-            }
-            res.send(user);
-        }*/).catch(err => {
-            if(err.kind === 'ObjectId') {
-                return res.status(404).send({
-                    message: "User not found with id " + req.params.userId
-                });
-            }
-            return res.status(500).send({
-                message: "Error updating user with id " + req.params.userId
-            });
-        });
-    };
+  async update(req, res) {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body)
+    const updated = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      name: user.name
+    }
+    return res.json(updated);
+  }
 
-    // Delete a user with the specified userId in the request
-    async delete(req, res){
-        User.findByIdAndRemove(req.params.userId)
-        .then(user => {
-            if(!user) {
-                return res.status(404).send({
-                    message: "User not found with id " + req.params.userId
-                });
-            }
-            res.send({message: "User deleted successfully!"});
-        }).catch(err => {
-            if(err.kind === 'ObjectId' || err.name === 'NotFound') {
-                return res.status(404).send({
-                    message: "User not found with id " + req.params.userId
-                });
-            }
-            return res.status(500).send({
-                message: "Could not delete user with id " + req.params.userId
-            });
-        });
-    };
+  async delete(req, res) {
+    const user = await User.findByIdAndDelete(req.params.id)
+    return res.json(user);
+  }
+
+  async findAll(req, res) {
+    const users = await User.find({})
+    return res.json(users.map(user => {
+      const show = {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        name: user.name
+      }
+      return show;
+    }));
+  }
+
 }
 
+module.exports = new UserController();
