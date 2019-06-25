@@ -16,12 +16,12 @@ var ProfileSchema = new mongoose.Schema({
 });
 
 ProfileSchema.virtual('avatar').get(function(){
-  const url = `${process.env.URL_DEV}:${process.env.PORT}` || process.env.URL
+  const url = process.env.URL_DEV && `${process.env.URL_DEV}:${process.env.PORT}` || process.env.URL
   return this.pathAvatar && `${url}/profiles/${decodeURIComponent(this.pathAvatar)}`
 })
 
 ProfileSchema.virtual('curriculum').get(function(){
-  const url = `${process.env.URL_DEV}:${process.env.PORT}` || process.env.URL
+  const url = process.env.URL_DEV && `${process.env.URL_DEV}:${process.env.PORT}` || process.env.URL
   return this.pathCurriculum && `${url}/profiles/${decodeURIComponent(this.pathCurriculum)}`
 })
 
