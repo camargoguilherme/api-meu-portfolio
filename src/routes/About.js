@@ -8,7 +8,7 @@ const AuthServices = require('../auth/AuthServices');
 routes.get('/about', AboutController.findAll);
 routes.get('/about/:id', AboutController.show);
 routes.post('/about', AuthServices.isAuthenticate, AboutController.store);
-routes.put('/about/:id', AuthServices.isAdmin, AboutController.update);
+routes.put('/about/:id', AuthServices.isAuthenticate, AboutController.update);
 routes.delete('/about/:id', AuthServices.isAdmin, AboutController.delete);
 
 module.exports = routes;

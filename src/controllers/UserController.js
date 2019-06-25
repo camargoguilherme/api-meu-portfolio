@@ -3,14 +3,20 @@ const User = require('../models/User');
 class UserController {
 
   async store(req, res) {
-    const user = await User.create(req.body);
-    const stored = {
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      name: user.name
-    }
-    return res.json(stored);
+    User.create(req.body)
+    .then( user =>{
+      const stored = {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        name: user.name
+      }
+      return res.json(stored);
+    }).catch( ({code}) =>{
+      if(code === 11000)
+        return res.status(404).send({message: 'username/email já cadastrado'})
+    })
+    
   }
 
   async show(req, res) {
@@ -37,6 +43,11 @@ class UserController {
 
   async delete(req, res) {
     const user = await User.findByIdAndDelete(req.params.id)
+    return res.json(user);
+  }
+
+  async deleteAll(req, res) {
+    const user = await User.deleteMany({})
     return res.json(user);
   }
 

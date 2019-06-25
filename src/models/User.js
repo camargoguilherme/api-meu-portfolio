@@ -3,8 +3,18 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
 var UserSchema = new mongoose.Schema({
-  email: String,
-  username: String,
+  email: {
+    type: String,
+    unique: true
+  },
+  username: {
+    type: String,
+    unique: true
+  },
+  admin:{
+    type: Boolean,
+    default: false
+  },
   password: String,
   name: String,
   token: String
@@ -26,7 +36,7 @@ UserSchema.methods = {
     return bcrypt.hashSync(password);
   },
   authUser(password) {
-    return password === this.password;
+    return bcrypt.compareSync(password,this.password);
   },
   createToken() {
     // create a token

@@ -18,10 +18,10 @@ routes.get('/', (req, res) => {
 	res.json({ status: true, message: 'api is running' })
 })
 
+routes.use(LoginRoute);
 routes.use(AboutRoute);
 routes.use(BlogRoute);
 routes.use(DetailRoute);
-routes.use(LoginRoute);
 routes.use(MediaRoute);
 routes.use(MenuRoute);
 routes.use(PortifolioRoute);

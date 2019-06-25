@@ -12,7 +12,7 @@ const upload = multer(uploadsConfig);
 routes.get('/portifolio', PortifolioController.findAll);
 routes.get('/portifolio/:id', PortifolioController.show);
 routes.post('/portifolio', AuthServices.isAuthenticate, upload.single('image'),PortifolioController.store);
-routes.put('/portifolio/:id', AuthServices.isAdmin, upload.single('image'), PortifolioController.update);
+routes.put('/portifolio/:id', AuthServices.isAuthenticate, upload.single('image'), PortifolioController.update);
 routes.delete('/portifolio/:id', AuthServices.isAdmin, PortifolioController.delete);
 routes.delete('/portifolio', AuthServices.isAdmin, PortifolioController.deleteMultiple);
 

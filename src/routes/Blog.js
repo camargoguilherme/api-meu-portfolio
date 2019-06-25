@@ -12,7 +12,7 @@ const upload = multer(uploadsConfig);
 routes.get('/blog', BlogController.findAll);
 routes.get('/blog/:id', BlogController.show);
 routes.post('/blog', AuthServices.isAuthenticate, upload.single('image'), BlogController.store);
-routes.put('/blog/:id', AuthServices.isAdmin, upload.single('image'), BlogController.update);
+routes.put('/blog/:id', AuthServices.isAuthenticate, upload.single('image'), BlogController.update);
 routes.delete('/blog/:id', AuthServices.isAdmin, BlogController.delete);
 routes.delete('/blog', AuthServices.isAdmin, BlogController.deleteMultiple);
 

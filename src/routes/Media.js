@@ -8,7 +8,7 @@ const AuthServices = require('../auth/AuthServices');
 routes.get('/media', MediaController.findAll);
 routes.get('/media/:id', MediaController.show);
 routes.post('/media', AuthServices.isAuthenticate, MediaController.store);
-routes.put('/media/:id', AuthServices.isAdmin, MediaController.update);
+routes.put('/media/:id', AuthServices.isAuthenticate, MediaController.update);
 routes.delete('/media/:id', AuthServices.isAdmin, MediaController.delete);
 
 module.exports = routes;
