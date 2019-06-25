@@ -19,7 +19,7 @@ function checkFileType(file, cb) {
 }
 module.exports = {
 	storage: multer.diskStorage({
-		destination: path.resolve(__dirname, '..', '..', 'upload', 'profile'),
+		destination: path.resolve(__dirname, '..', '..', 'upload'),
 		filename: function(res, file, cb){
 			cb(null, file.originalname.replace(/\s/g, '_'));
 		}
