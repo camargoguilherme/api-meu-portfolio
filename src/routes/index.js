@@ -1,5 +1,6 @@
 const express = require('express');
 const routes = express.Router();
+const path = require('path');
 
 const AboutRoute = require('./About');
 const BlogRoute = require('./Blog');
@@ -12,11 +13,11 @@ const ProfileRoute = require('./Profile');
 const SkillRoute = require('./Skill');
 const UserRoute = require('./User');
 
-const AuthServices = require('../auth/AuthServices');
-
 routes.get('/', (req, res) => {
 	res.json({ status: true, message: 'api is running' })
 })
+
+routes.use('/files', express.static(path.resolve(__dirname, '..', '..', 'upload')));
 
 routes.use(LoginRoute);
 routes.use(AboutRoute);
@@ -27,6 +28,6 @@ routes.use(MenuRoute);
 routes.use(PortifolioRoute);
 routes.use(ProfileRoute);
 routes.use(SkillRoute);
-routes.use(AuthServices.isAdmin, UserRoute);
+routes.use(UserRoute);
 
 module.exports = routes;
