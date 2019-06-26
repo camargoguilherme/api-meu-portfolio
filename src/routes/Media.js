@@ -9,6 +9,6 @@ routes.get('/media', MediaController.findAll);
 routes.get('/media/:id', MediaController.show);
 routes.post('/media', AuthServices.isAuthenticate, MediaController.store);
 routes.put('/media/:id', AuthServices.isAuthenticate, MediaController.update);
-routes.delete('/media/:id', AuthServices.isAdmin, MediaController.delete);
+routes.delete('/media/:id', AuthServices.isAuthenticate, MediaController.delete);
 
 module.exports = routes;

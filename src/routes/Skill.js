@@ -9,6 +9,6 @@ routes.get('/skill', SkillController.findAll);
 routes.get('/skill/:id', SkillController.show);
 routes.post('/skill', AuthServices.isAuthenticate, SkillController.store);
 routes.put('/skill/:id', AuthServices.isAuthenticate, SkillController.update);
-routes.delete('/skill/:id', AuthServices.isAdmin, SkillController.delete);
+routes.delete('/skill/:id', AuthServices.isAuthenticate, SkillController.delete);
 
 module.exports = routes;

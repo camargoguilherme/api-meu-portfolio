@@ -9,6 +9,6 @@ routes.get('/menu', MenuController.findAll);
 routes.get('/menu/:id', MenuController.show);
 routes.post('/menu', AuthServices.isAuthenticate, MenuController.store);
 routes.put('/menu/:id', AuthServices.isAuthenticate, MenuController.update);
-routes.delete('/menu/:id', AuthServices.isAdmin, MenuController.delete);
+routes.delete('/menu/:id', AuthServices.isAuthenticate, MenuController.delete);
 
 module.exports = routes;

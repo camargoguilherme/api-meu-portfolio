@@ -9,6 +9,6 @@ routes.get('/about', AboutController.findAll);
 routes.get('/about/:id', AboutController.show);
 routes.post('/about', AuthServices.isAuthenticate, AboutController.store);
 routes.put('/about/:id', AuthServices.isAuthenticate, AboutController.update);
-routes.delete('/about/:id', AuthServices.isAdmin, AboutController.delete);
+routes.delete('/about/:id', AuthServices.isAuthenticate, AboutController.delete);
 
 module.exports = routes;

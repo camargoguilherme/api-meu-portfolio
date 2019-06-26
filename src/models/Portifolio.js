@@ -11,7 +11,7 @@ var PortifolioSchema = new mongoose.Schema({
 });
 
 PortifolioSchema.virtual('image').get(function(){
-  const url = process.env.URL || 'http://localhost:3333'
+  const url = process.env.URL_DEV && `${process.env.URL_DEV}:${process.env.PORT}` || process.env.URL
   return this.pathImage && `${url}/files/${decodeURIComponent(this.pathImage)}`
 })
 

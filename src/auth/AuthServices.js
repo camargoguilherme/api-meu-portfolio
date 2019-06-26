@@ -7,7 +7,7 @@ class AuthServices {
   login(req, res) {
     let username = req.body.username;
     let password = req.body.password;
-    console.log(req.body)
+    
     User.findOne({ username: username })
       .exec(function (err, user) {
         if (err) {
@@ -27,7 +27,7 @@ class AuthServices {
   //Verifica se usuario esta autenticado
   isAuthenticate(req, res, next) {
     const token = req.headers['x-access-token'];
-    console.log(req.headers)
+    
     if (!token)
       return res.status(401).send({ auth: false, message: 'Nenhum token fornecido N1' });
 

@@ -16,11 +16,11 @@ class BlogController{
   }
 
   async update(req, res){
-    const blog = {
+    let blog = {
       ...req.body,
-      pathImage: req.file && req.file.filename
     }
-  
+    req.file && (blog.pathImage = req.file.filename)
+    
     const blogUpdated = await Blog.findByIdAndUpdate(req.params.id, blog);
     return res.json(blogUpdated);
   }

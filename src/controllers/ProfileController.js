@@ -22,12 +22,12 @@ class ProfileController{
   async update(req, res){
     const { avatar, curriculum } = req.files;
     
-    const profile = {
+    let profile = {
       ...req.body,
-      pathAvatar: avatar && avatar[0].filename,
-      pathCurriculum: curriculum && curriculum[0].filename
     }
-  
+    req.files.avatar && (profile.pathAvatar = avatar[0].filename)
+    req.files.curriculum && (profile.pathCurriculum = curriculum[0].filename)
+    
     const profileUpdated = await Profile.findByIdAndUpdate(req.params.id, profile);
     return res.json(profileUpdated);
   }

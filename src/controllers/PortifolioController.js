@@ -17,10 +17,10 @@ class PortifolioController{
   }
 
   async update(req, res){
-    const portifolio = {
+    let portifolio = {
       ...req.body,
-      pathImage: req.file && req.file.filename
     }
+    req.file && (portifolio.pathImage = req.file.filename)
     
     const portifolioUpdated = await Portifolio.findByIdAndUpdate(req.params.id, portifolio);
     return res.json(portifolioUpdated);
