@@ -14,7 +14,7 @@ const firebaseConfig = require('./config');
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
-const storageRef = app.storage().ref('produtos');
+const storageRef = app.storage().ref('portfolio');
 
 listFolders = async (path) => {
   let ref = storageRef.child(path);

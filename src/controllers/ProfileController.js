@@ -1,4 +1,6 @@
 const Profile = require('../models/Profile');
+const fs = require('fs');
+const { deleteFiles } = require('../utility');
 
 class ProfileController {
 
@@ -13,7 +15,7 @@ class ProfileController {
   async store(req, res) {
     const { avatar, curriculum } = req.files;
     const profile = { ...req.body };
-
+    let pathToEmpty = '';
     if (avatar) {
       const { path, filename, mimetype, destination } = avatar[0];
 
@@ -21,7 +23,7 @@ class ProfileController {
       const pathFile = `profile/avatar/${filename}`;
 
       profile['avatar'] = await uploadFile(pathFile, file, mimetype)
-      deleteFiles(destination);
+      pathToEmpty = destination;
     }
     if (curriculum) {
       const { path, filename, mimetype, destination } = curriculum[0];
@@ -30,8 +32,10 @@ class ProfileController {
       const pathFile = `profile/curriculum/${filename}`;
 
       profile['curriculum'] = await uploadFile(pathFile, file, mimetype)
-      deleteFiles(destination);
+      pathToEmpty = destination;
     }
+
+    deleteFiles(pathToEmpty);
 
     Profile.create(profile)
       .then(profile => {
