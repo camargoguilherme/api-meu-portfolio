@@ -1,7 +1,7 @@
 {
-  "name": "api-portifolio",
+  "name": "api-portfolio",
   "version": "1.0.0",
-  "description": "API para edição das informaçoes no portifolio",
+  "description": "API para edição das informaçoes no portfolio",
   "main": "index.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -40,6 +40,7 @@ UserSchema.methods = {
   },
   createToken() {
     // create a token
+    
     var token = jwt.sign({ id: this._id }, process.env.JWT_WORD || 'JWT_WORD', 
       { 
         expiresIn: 3600 // expires in 24 hours
