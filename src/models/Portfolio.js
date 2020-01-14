@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 
-var DetailSchema = new mongoose.Schema({
+var PortfolioSchema = new mongoose.Schema({
   title: String,
-  info: String
+  github: String,
+  url: String
 },{
   timestamps: true,
   toObject: { virtuals: true },
@@ -10,4 +11,4 @@ var DetailSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Detail', DetailSchema);
+module.exports = mongoose.model('Portfolio', PortfolioSchema);

@@ -1,23 +1,20 @@
 const express = require('express');
 const routes = express.Router();
-const path = require('path');
 
-const AboutRoute = require('./About');
-const BlogRoute = require('./Blog');
-const DetailRoute = require('./Detail');
-const LoginRoute = require('./Login');
-const MediaRoute = require('./Media');
-const MenuRoute = require('./Menu');
-const PortifolioRoute = require('./Portifolio');
-const ProfileRoute = require('./Profile');
-const SkillRoute = require('./Skill');
-const UserRoute = require('./User');
+const AboutRoute = require('./AboutRoute');
+const BlogRoute = require('./BlogRoute');
+const DetailRoute = require('./DetailRoute');
+const LoginRoute = require('./LoginRoute');
+const MediaRoute = require('./MediaRoute');
+const MenuRoute = require('./MenuRoute');
+const PortfolioRoute = require('./PortfolioRoute');
+const ProfileRoute = require('./ProfileRoute');
+const SkillRoute = require('./SkillRoute');
+const UserRoute = require('./UserRoute');
 
 routes.get('/', (req, res) => {
-	res.json({ status: true, message: 'api is running' })
+	res.json({ status: true, message: 'api is running', version: '1.0.0' })
 })
-
-routes.use('/files', express.static(path.resolve(__dirname, '..', '..', 'upload')));
 
 routes.use(LoginRoute);
 routes.use(AboutRoute);
@@ -25,7 +22,7 @@ routes.use(BlogRoute);
 routes.use(DetailRoute);
 routes.use(MediaRoute);
 routes.use(MenuRoute);
-routes.use(PortifolioRoute);
+routes.use(PortfolioRoute);
 routes.use(ProfileRoute);
 routes.use(SkillRoute);
 routes.use(UserRoute);
